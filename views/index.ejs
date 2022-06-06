@@ -1,5 +1,3 @@
-const Tool = require("../models/Tool.model");
-
 
 <img src="" alt="Nice logo">
 <p>Welcome to the Web Developer Tool Database!</p>
@@ -8,5 +6,6 @@ const Tool = require("../models/Tool.model");
 <ul>
     <% data.forEach( tool => { %>
         <p><%= tool.toolName %> </p>
+        <button><a href="../tools/detail/<%= tool._id %>">Show details</a></button>
     <% }) %> 
 </ul>

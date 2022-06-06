@@ -9,8 +9,7 @@ const User = require("../models/User.model")
 /* GET home page */
 router.get("/", async (req, res, next) => {
     let data = await Tool.find({creator: req.session.user});
-    console.log(data)
-  res.render("user/profile.ejs", {data});
+    res.render("user/profile.ejs", {data});
 });
 
 module.exports = router;

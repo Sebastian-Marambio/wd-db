@@ -51,21 +51,21 @@ List of other features outside of the MVPs scope
 - POST /auth/logout
   - body: (empty)
 
-- GET /tool/details/:id
+- GET /tool/detail/:id
   - renders the tool details page, shows links to update and delete if tool was created by this user
 - GET /tool/detail/add
   - renders the form to create a tool
 - POST /tool/detail/add
   - creates the tool in the db
   - redirects to the /tool/details/:id (of newly created tool)
-- GET /tool/details/:id/edit
+- GET /tool/detail/:id/edit
   - renders the form to edit the tool
   - guarded so it can only be accessed by creator of this tool
-- POST /tool/details/:id/edit
+- POST /tool/detail/:id/edit
   - redirects to /tool/details/edit
   - updates tool
   - guarded so it can only be accessed by creator of this tool
-- POST /tool/details/:id/delete
+- POST /tool/detail/:id/delete
   - deletes tool
   - redirects 
   - guarded so it can only be accessed by creator of this tool

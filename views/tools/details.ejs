@@ -1,1 +1,24 @@
 //Show all the tool information
+
+<h2><%= toolDetails.toolName %></h2>
+
+<p><%= toolDetails.description %> </p>
+<div class="toolimg"><%= toolDetails.img %></div>
+<p><%= toolDetails.rating %> </p>
+<p><%= toolDetails.numberOfratings %> </p>
+
+<form action="/tools/detail/<%= toolDetails._id %>/rate" method="POST">
+    <label> Rating</label>
+        <select name="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button type="submit">Rate</button>
+</form>
+<form action="/tools/detail/<%= toolDetails._id %>/delete" method="POST">
+<button type="submit">Delete</button>
+</form>
+

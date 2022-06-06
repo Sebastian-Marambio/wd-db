@@ -18,7 +18,8 @@ const toolSchema = new Schema({
   }, // oder select/enum?
   img: { type: String },
   //img must be valid web address or can be uploaded via media uploads
-  rating: Number,
+  rating: {type: Number, default: 2},
+  numberOfRatings: {type: Number, default: '0'},
   downloads: Number,
   createDate: {
     type: Date,
