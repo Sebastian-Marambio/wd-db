@@ -1,2 +1,12 @@
-<h1><%= appTitle %> 🚀</h1>
-<p>Welcome Ironhacker!</p>
+const Tool = require("../models/Tool.model");
+
+
+<img src="" alt="Nice logo">
+<p>Welcome to the Web Developer Tool Database!</p>
+
+<h2>All tools</h2>
+<ul>
+    <% data.forEach( tool => { %>
+        <p><%= tool.toolName %> </p>
+    <% }) %> 
+</ul>

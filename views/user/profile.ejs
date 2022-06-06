@@ -1,0 +1,12 @@
+//Welcome container
+//Created items container
+//Fav list
+//Add tool
+<h1>Welcome to your profile</h1>
+<a href="../tools/detail/add">Create new tool</a>
+<h2>Your tools</h2>
+<ul>
+    <% data.forEach( tool => { %>
+        <p><%= tool.toolName %> </p>
+    <% }) %> 
+</ul>

@@ -1,2 +1,3 @@
-<%# !-- this file is only shown whenever there is an error during log out -- %> <% if (errorMessage)
-{ %> <%= errorMessage %> <% } %>
+<%# !-- this file is only shown whenever there is an error during log out -- %> 
+<% if (typeof errorMessage !== "undefined"){ %>
+<%= errorMessage %> <% } %>
