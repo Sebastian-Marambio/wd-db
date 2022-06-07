@@ -19,8 +19,9 @@ const toolSchema = new Schema({
   img: { type: String },
   //img must be valid web address or can be uploaded via media uploads
   rating: {type: Number, default: '0'},
-  numberOfRatings: {type: Number, default: '0'},
-  downloads: Number,
+  numberOfRatings: { type: Number, default: '0' },
+  downloadLink: String,
+  downloads: { type: Number, default: '0' },
   createDate: {
     type: Date,
     default: Date.now 
@@ -30,4 +31,4 @@ const toolSchema = new Schema({
 
 const Tools = model("tool", toolSchema);
 
-module.exports = Tools;
+module.exports = Tools; 

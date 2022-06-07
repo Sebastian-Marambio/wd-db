@@ -4,8 +4,9 @@
 
 <p><%= toolDetails.description %> </p>
 <div class="toolimg"><%= toolDetails.img %></div>
-<p><%= toolDetails.rating %> </p>
-<p><%= toolDetails.numberOfratings %> </p>
+<a href="<%= toolDetails.downloadLink %>">Download link</a>
+<p>Rating: <%= toolDetails.rating %> </p>
+<p>Number of ratings: <%= toolDetails.numberOfRatings %> </p>
 
 <form action="/tools/detail/<%= toolDetails._id %>/rate" method="POST">
     <label> Rating</label>
@@ -18,7 +19,10 @@
         </select>
         <button type="submit">Rate</button>
 </form>
-<form action="/tools/detail/<%= toolDetails._id %>/delete" method="POST">
-<button type="submit">Delete</button>
-</form>
+<% if (isOwner) { %>
+    <form action="/tools/detail/<%= toolDetails._id %>/delete" method="POST">
+        <button type="submit">Delete</button>
+        </form>
+<% } %>
+
 

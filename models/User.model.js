@@ -12,7 +12,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minlength: 8},
-    // user-data {}
+    ratings: [{
+      tool: {
+        type: Schema.Types.ObjectId,
+        ref: 'Tools',
+      },
+      ratingValue: { type: Number }
+    }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

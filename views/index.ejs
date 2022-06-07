@@ -3,9 +3,37 @@
 <p>Welcome to the Web Developer Tool Database!</p>
 
 <h2>All tools</h2>
+
+<form method="post" action="/">
+    <label>
+        <select class="sort" name="sort">
+            <option value='rating'>By Rating</option>
+            <option value='downloads'>By N° of Downloads</option>
+            <option value='alphabetically'>Alphabetically</option>
+        </select>
+        <select class="filter" name="filter">
+            <option value='all'>All categories</option>
+            <option value='general'>General</option>
+            <option value='cloud'>Cloud/Platform</option>
+            <option value='graphic'>Graphic</option>
+            <option value='assets'>Assets</option>
+            <option value='editor'>Editor</option>
+            <option value='bugs'>Bugs</option>
+        </select>
+        <button type="submit">Sort</button>
+    </label>
+</form>
+
 <ul>
     <% data.forEach( tool => { %>
-        <p><%= tool.toolName %> </p>
+        <p>Name: <%= tool.toolName %> </p>
+        <p>Rating: <%= tool.rating %> </p>
+        <p>Number of ratings: <%= tool.numberOfRatings %> </p>
+        <p>Number of downloads: <%= tool.downloads %></p>
+        <form action="../tools/detail/<%= tool._id %>/incrementDownloadCounter" method="POST" target="_blank">
+            <button id="dlCounter" >Download link</a></button>
+        </form>
+        
         <button><a href="../tools/detail/<%= tool._id %>">Show details</a></button>
     <% }) %> 
 </ul>
