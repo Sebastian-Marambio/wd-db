@@ -114,10 +114,16 @@ router.post("/detail/:id/delete", isLoggedIn, async (req, res) => {
 router.post("/detail/:id/incrementDownloadCounter", async (req, res) => {
   const { id } = req.params;
   const toolToBeUpdated = await Tool.findById(id)
-  const newNumberOfDownloads = toolToBeUpdated.downloads + 1;
-  await Tool.findByIdAndUpdate(id, { downloads: newNumberOfDownloads });
-  console.log("number of downloads incremented");
-  res.redirect(`${toolToBeUpdated.downloadLink}`);
+  if (toolToBeUpdated.downloadLink != "") {
+    const newNumberOfDownloads = toolToBeUpdated.downloads + 1;
+    await Tool.findByIdAndUpdate(id, { downloads: newNumberOfDownloads });
+    console.log("number of downloads incremented");
+    res.redirect(`${toolToBeUpdated.downloadLink}`);
+  } else {
+    
+    res.render("error.ejs", {errorMessage: "This tool unfortunately has no download link."});
+  }
+  
 })
   
 module.exports = router; 
