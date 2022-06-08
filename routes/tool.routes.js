@@ -4,17 +4,29 @@ const Tool = require("../models/Tool.model");
 const User = require("../models/User.model");
 const express = require("express");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const fileUploader = require("../config/cloudinary.config")
+const {format} = require('date-fns');
+
 
 
 router.get("/detail/add", isLoggedIn, (req, res, next) => {
   res.render("tools/create.ejs"); 
 });
 
-router.post("/detail/add", isLoggedIn, async (req, res, next) => {
+router.post("/detail/add", isLoggedIn, fileUploader.single("tool-img"), async (req, res, next) => {
   try {
-    
     req.body.creator = req.session.user._id;
-    await Tool.create(req.body);
+    if (typeof req.body.path != "undefined") {
+      await Tool.create({
+        toolName: req.body.toolName, 
+        description: req.body.description,
+        category: req.body.category, 
+        img: req.file.path,
+        downloadLink: req.body.downloadLink,
+        creator: req.body.creator
+      });
+    } else
+    { await Tool.create( req.body ); }
     res.redirect("/user/"); 
   } catch (error) {
     if (error.code === 11000) {
@@ -28,14 +40,38 @@ router.post("/detail/add", isLoggedIn, async (req, res, next) => {
 
 router.get("/detail/:id", async (req, res, next) => {
   const { id } = req.params
-  console.log('Session ID:', req.session.user._id)
+  let isOwner = false;
+  let isLoggedIn = false;
+  const toolDetails = await Tool.findById(id)
+  const date = toolDetails.createDate;
+  const formattedDate = format(date, 'dd.MM.yyyy')
+  try {
+    if (req.session.user._id == toolDetails.creator) {
+      isOwner = true; isLoggedIn = true
+      res.render('tools/details.ejs', { toolDetails, isOwner, isLoggedIn, formattedDate })
+    } else {
+      isLoggedIn = true;
+      res.render('tools/details.ejs', { toolDetails, isOwner, isLoggedIn, formattedDate })
+    }
+  } catch {
+    res.render('tools/details.ejs', {toolDetails, isOwner, isLoggedIn, formattedDate})
+  }
+}); 
+
+router.get("/detail/:id/edit", async (req, res, next) => {
+  const { id } = req.params
   let isOwner=false
   const toolDetails = await Tool.findById(id)
-  console.log("Creator ID: ", toolDetails.creator )
 
   if (req.session.user._id == toolDetails.creator) {isOwner=true}
-  res.render('tools/details.ejs', {toolDetails, isOwner})
-  }); 
+  res.render('tools/edit.ejs/', {toolDetails, isOwner})
+})
+
+router.post("/detail/:id/edit", async (req, res, next) => {
+  const { id } = req.params
+  await Tool.findByIdAndUpdate(id, req.body)
+  res.redirect('/user/')
+})
 
 router.post("/detail/:id/rate", async (req, res, next) => {
   const { id } = req.params
@@ -46,9 +82,7 @@ router.post("/detail/:id/rate", async (req, res, next) => {
   // has user a rating for this tool?
   let hasRating = false;
   userToBeUpdated.ratings.forEach(async rating => {
-    console.log(rating.tool, id);
     if (rating.tool == id) { 
-      // await User.findByIdAndUpdate(req.session.user._id, { ratingValue: req.body.rating });
       hasRating = true;
       const newRating = ((data.rating * data.numberOfRatings + (req.body.rating - rating.ratingValue)) / data.numberOfRatings).toFixed(1);
       rating.ratingValue = req.body.rating;
@@ -79,7 +113,6 @@ router.post("/detail/:id/delete", isLoggedIn, async (req, res) => {
 
 router.post("/detail/:id/incrementDownloadCounter", async (req, res) => {
   const { id } = req.params;
-  console.log(req.params)
   const toolToBeUpdated = await Tool.findById(id)
   const newNumberOfDownloads = toolToBeUpdated.downloads + 1;
   await Tool.findByIdAndUpdate(id, { downloads: newNumberOfDownloads });

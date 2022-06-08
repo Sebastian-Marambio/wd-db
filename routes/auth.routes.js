@@ -28,7 +28,6 @@ router.post("/signup", isLoggedOut, (req, res) => {
   }
 
   if (password.length < 8) {
-    console.log("Hi!")
     return res.status(400).render("auth/signup", {
       errorMessage: "Your password needs to be at least 8 characters long.",
     });

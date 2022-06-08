@@ -1,6 +1,6 @@
 <h1>Add a tool to the database</h1>
 
-<form action="/tools/detail/add" method="POST">
+<form action="/tools/detail/add" method="POST" enctype="multipart/form-data">
     <label>
       Name:
       <input type="text" name="toolName" />
@@ -22,7 +22,11 @@
             <option value="editor">Editor</option>
             <option value="bugs">Bugs</option> 
         </select>   
+    <label>
+      Upload image:
+      <input type="file" name="tool-img">
     <button type="submit">Create</button>
   </form>
+
 
   <% if (typeof errorMessage !== "undefined") { %> <%= errorMessage %> <% } %>

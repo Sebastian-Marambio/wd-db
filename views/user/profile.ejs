@@ -1,19 +1,14 @@
-//Welcome container
-//Created items container
-//Fav list
-//Add tool
 <h1>Welcome to your profile <%= user.username %></h1>
-<a href="../tools/detail/add">Create new tool</a>
 <h2>Your tools</h2>
-<ul>
-    <% data.forEach( tool => { %>
-       <div>
-        <p><%= tool.toolName %> </p>
+<% data.forEach( tool => { %>
+    <div class="card">
+        <img class= "tool-icon" src=<%= tool.img%> alt="the tool's logo">
+        <p id="tool-name"> <%= tool.toolName %> </p>
         <button><a href="../tools/detail/<%= tool._id %>">Show details</a></button>
-        <% }) %> 
-       </div>
-        
-</ul>
+    </div>
+    <% }) %> 
 
+<button id="create-new-tool-button"><a href="../tools/detail/add">Create new tool</a></button>
 
+   
 <% if (typeof errorMessage !== "undefined") { %> <%= errorMessage %> <% } %>

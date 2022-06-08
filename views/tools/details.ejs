@@ -1,13 +1,18 @@
-//Show all the tool information
-
-<h2><%= toolDetails.toolName %></h2>
+<h2 id="tool-detail-heading"><%= toolDetails.toolName %></h2>
 
 <p><%= toolDetails.description %> </p>
-<div class="toolimg"><%= toolDetails.img %></div>
-<a href="<%= toolDetails.downloadLink %>">Download link</a>
+<div><img class="toolimg" src=<%= toolDetails.img %>></div>
+<div id="download-div">
+    <a href="<%= toolDetails.downloadLink %>" id="download-anchor-tag">Download</a>
+</div>
 <p>Rating: <%= toolDetails.rating %> </p>
 <p>Number of ratings: <%= toolDetails.numberOfRatings %> </p>
+<p>Number of downloads: <%= toolDetails.downloads %></p>
+<p>In the database since: <%= formattedDate %></p>
 
+
+
+<% if (isLoggedIn) { %>
 <form action="/tools/detail/<%= toolDetails._id %>/rate" method="POST">
     <label> Rating</label>
         <select name="rating">
@@ -19,7 +24,9 @@
         </select>
         <button type="submit">Rate</button>
 </form>
+<% } %>
 <% if (isOwner) { %>
+    <button type="submit"><a href="/tools/detail/<%= toolDetails._id %>/edit">Edit</a></button>
     <form action="/tools/detail/<%= toolDetails._id %>/delete" method="POST">
         <button type="submit">Delete</button>
         </form>

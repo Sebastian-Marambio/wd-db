@@ -16,7 +16,8 @@ const toolSchema = new Schema({
     enum: ["general", "cloud", "graphic", "assets", "editor", "bugs"],
     required: true,
   }, // oder select/enum?
-  img: { type: String },
+  img: { type: String,
+    default: '/images/placeholder-img.png'},
   //img must be valid web address or can be uploaded via media uploads
   rating: {type: Number, default: '0'},
   numberOfRatings: { type: Number, default: '0' },
@@ -24,7 +25,7 @@ const toolSchema = new Schema({
   downloads: { type: Number, default: '0' },
   createDate: {
     type: Date,
-    default: Date.now 
+    default: Date.now   
   },
   creator: { type: Schema.Types.ObjectID, ref: "User" },
 });

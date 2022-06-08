@@ -1,0 +1,34 @@
+<h1>Edit tool</h1>
+
+<form action="/tools/detail/<%= toolDetails._id %>/edit" method="POST">
+    <label>
+      Name:
+      <input type="text" name="toolName" value="<%= toolDetails.toolName %>"/>
+    </label>
+    <label>
+      Description:
+      <input type="text" name="description"  value="<%= toolDetails.description %>"/>
+    </label>
+    <label>
+      Download link:
+      <input type="text" name="downloadLink" value="<%= toolDetails.downloadLink %>"/>
+    </label>
+    <label> Categories</label>
+        <select name="category" multiple>
+            <option value="general">General</option>
+            <option value="cloud">Cloud</option>
+            <option value="graphic">Graphic</option>
+            <option value="assets">Assets</option>
+            <option value="editor">Editor</option>
+            <option value="bugs">Bugs</option> 
+        </select>   
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <% if (isOwner) { %>
+    <form action="/tools/detail/<%= toolDetails._id %>/delete" method="POST">
+        <button type="submit">Delete</button>
+        </form>
+<% } %>
+
+  <% if (typeof errorMessage !== "undefined") { %> <%= errorMessage %> <% } %>

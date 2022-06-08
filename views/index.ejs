@@ -1,15 +1,15 @@
 
-<img src="" alt="Nice logo">
 <p>Welcome to the Web Developer Tool Database!</p>
 
 <h2>All tools</h2>
 
 <form method="post" action="/">
-    <label>
+    <label id="selector">
         <select class="sort" name="sort">
             <option value='rating'>By Rating</option>
             <option value='downloads'>By N° of Downloads</option>
             <option value='alphabetically'>Alphabetically</option>
+            <option value='by-date'>Newest first</option>
         </select>
         <select class="filter" name="filter">
             <option value='all'>All categories</option>
@@ -20,20 +20,20 @@
             <option value='editor'>Editor</option>
             <option value='bugs'>Bugs</option>
         </select>
-        <button type="submit">Sort</button>
+        <button type="submit" id="sort-button">Sort</button>
     </label>
 </form>
 
-<ul>
-    <% data.forEach( tool => { %>
-        <p>Name: <%= tool.toolName %> </p>
-        <p>Rating: <%= tool.rating %> </p>
-        <p>Number of ratings: <%= tool.numberOfRatings %> </p>
+<% data.forEach( tool => { %>
+    <div class="card">
+        <img class= "tool-icon" src=<%= tool.img %> alt="the tool's logo">
+        <p id="tool-name"> <%= tool.toolName %> </p>
+        <p id="tool-rating"><%= tool.rating %> </p>
         <p>Number of downloads: <%= tool.downloads %></p>
-        <form action="../tools/detail/<%= tool._id %>/incrementDownloadCounter" method="POST" target="_blank">
-            <button id="dlCounter" >Download link</a></button>
+        <form id="dlCounter" action="../tools/detail/<%= tool._id %>/incrementDownloadCounter" method="POST" target="_blank">
+            <button>Download</button>
         </form>
         
-        <button><a href="../tools/detail/<%= tool._id %>">Show details</a></button>
-    <% }) %> 
-</ul>
+        <button id="show-details-button"><a id="showDetailsLink" href="../tools/detail/<%= tool._id %>">Show details</a></button>
+    </div>
+<% }) %> 

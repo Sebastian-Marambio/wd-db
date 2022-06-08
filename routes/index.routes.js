@@ -24,7 +24,10 @@ router.post("/", urlencodedParser, async (req, res, next) => {
    }
    else if (req.body.sort === 'alphabetically') {
      data = await Tool.find().collation({'locale':'en'}).sort({toolName: 1});
-   }}
+   }
+   else if (req.body.sort === 'by-date') {
+    data = await Tool.find().sort({createDate: -1});
+  }}
   else {
     if (req.body.sort === 'rating') {
       data = await Tool.find({category: req.body.filter}).sort({rating: -1});
@@ -35,8 +38,10 @@ router.post("/", urlencodedParser, async (req, res, next) => {
    else if (req.body.sort === 'alphabetically') {
      data = await Tool.find({ category: req.body.filter }).collation({'locale':'en'}).sort({toolName: 1});
    }
+   else if (req.body.sort === 'by-date') {
+    data = await Tool.find({category: req.body.filter}).sort({createDate: -1});
   }  
-  
+}
   res.render("index", {data});
 })
 
