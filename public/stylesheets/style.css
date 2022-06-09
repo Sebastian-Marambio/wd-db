@@ -1,6 +1,7 @@
 body {
   padding: 0 1% 1% 1%;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px Verdana, sans-serif;
+  font-weight:400;
   background-image: url('/images/wd-db-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -117,6 +118,8 @@ button {
 
 .card1 p {
   white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .card1 button {
@@ -160,7 +163,8 @@ button {
 
 #tool-name {
   font-size: 30px;
-  width: 10%
+  width: 10%;
+  font-weight: 600;
 }
 
 #tool-rating {
@@ -277,9 +281,13 @@ button {
   text-align: middle;
 }
 
-.detailcard p,h2{
+.detailcard p{
   display: flex;
   justify-content: center;
+}
+
+.detailcard h2{
+  margin-left: 5%;
 }
 
 .detailButtons button {
@@ -290,10 +298,10 @@ button {
 
 .edit {
   display:flex;
-  height:60%;
+  height:70%;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
 }
 
@@ -302,8 +310,4 @@ button {
   width: 80%;
   text-align: center;
   vertical-align: middle;
-}
-
-#decription input {
-  line-height: 40px;
 }

@@ -5,7 +5,7 @@ const User = require("../models/User.model")
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-/* GET home page */
+/* GET home page */ 
 router.get("/", async (req, res, next) => {
   let data = await Tool.find().sort({rating: -1});
   res.render("index", {data});
@@ -43,6 +43,12 @@ router.post("/", urlencodedParser, async (req, res, next) => {
   }  
 }
   res.render("index", {data});
+})
+
+router.post('/search/', async (req, res, next) => {
+
+  const searchResults = await Tool.find({$text: {$search: req.body.search}})
+  res.render("results", {searchResults})
 })
 
 module.exports = router;

@@ -1,14 +1,14 @@
 <h1>Edit tool</h1>
 
 <div class="editform">
-  <form action="/tools/detail/<%= toolDetails._id %>/edit" method="POST" class="edit">
+  <form action="/tools/detail/<%= toolDetails._id %>/edit" method="POST" class="edit" enctype="multipart/form-data">
     <label>
       Name:
       <input type="text" name="toolName" value="<%= toolDetails.toolName %>"/>
     </label>
     <label id="decription">
       Description:
-      <textarea type="text" name="description"  value="<%= toolDetails.description %>" style="width: 60%;"><%= toolDetails.description %>  </textarea>
+      <textarea type="text" name="description"  value="<%= toolDetails.description %>" style="width: 50%;"><%= toolDetails.description %>  </textarea>
     </label>
     <label>
       Download link:
@@ -22,7 +22,11 @@
             <option value="assets">Assets</option>
             <option value="editor">Editor</option>
             <option value="bugs">Bugs</option> 
-        </select>   
+        </select>
+      <label>
+          Upload image:
+          <input type="file" name="tool-img" value="<%= toolDetails.img %>">
+      </label>  
     <button type="submit">Save Changes</button>
     <% if (isOwner) { %>
       <form action="/tools/detail/<%= toolDetails._id %>/delete" method="POST">

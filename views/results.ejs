@@ -1,0 +1,11 @@
+<h2 >Search results</h2>
+<% searchResults.forEach( tool => { %>
+    <div class="card">
+        <img class= "tool-icon" src=<%= tool.img%> alt="the tool's logo">
+        <p id="tool-name"> <%= tool.toolName %> </p>
+        <button><a href="../tools/detail/<%= tool._id %>">Show details</a></button>
+    </div>
+    <% }) %> 
+
+   
+    <% if (typeof errorMessage !== "undefined") { %> <%= errorMessage %> <% } %>

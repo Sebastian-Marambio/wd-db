@@ -24,12 +24,14 @@ const toolSchema = new Schema({
   numberOfRatings: { type: Number, default: '0' },
   downloadLink: String,
   downloads: { type: Number, default: '0' },
-  createDate: {
+  createDate: { 
     type: Date,
     default: Date.now   
   },
   creator: { type: Schema.Types.ObjectID, ref: "User" },
 });
+
+// toolSchema.index({'$**': 'text'});
 
 const Tools = model("tool", toolSchema);
 

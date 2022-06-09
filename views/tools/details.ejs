@@ -9,11 +9,11 @@
         <p>In the database since: <%= formattedDate %></p>
     </div>
     
+
     <div class="detailButtons">
         <button><a class="download-anchor-tag" href="<%= toolDetails.downloadLink %>" >Download</a></button>
         <% if (isLoggedIn) { %>
         <form action="/tools/detail/<%= toolDetails._id %>/rate" method="POST">
-            <label></label>
             <button type="submit">Rate</button>
                 <select name="rating">
                     <option value="1">1</option>

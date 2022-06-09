@@ -16,7 +16,7 @@ router.get("/detail/add", isLoggedIn, (req, res, next) => {
 router.post("/detail/add", isLoggedIn, fileUploader.single("tool-img"), async (req, res, next) => {
   try {
     req.body.creator = req.session.user._id;
-    if (typeof req.file.path != "undefined") {
+    if (req.file) {
       await Tool.create({
         toolName: req.body.toolName, 
         description: req.body.description,
@@ -67,9 +67,20 @@ router.get("/detail/:id/edit", async (req, res, next) => {
   res.render('tools/edit.ejs/', {toolDetails, isOwner})
 })
 
-router.post("/detail/:id/edit", async (req, res, next) => {
+router.post("/detail/:id/edit", fileUploader.single("tool-img"), async (req, res, next) => {
   const { id } = req.params
-  await Tool.findByIdAndUpdate(id, req.body)
+  if (req.file) {
+    await Tool.findByIdAndUpdate(id, {
+      toolName: req.body.toolName,
+      description: req.body.description,
+      category: req.body.category,
+      img: req.file.path,
+      downloadLink: req.body.downloadLink,
+      creator: req.body.creator
+    })
+  } else {
+    await Tool.findByIdAndUpdate(id, req.body);
+  };
   res.redirect('/user/')
 })
 
@@ -78,10 +89,10 @@ router.post("/detail/:id/rate", async (req, res, next) => {
   const userToBeUpdated = await User.findById(req.session.user._id)
   const data = await Tool.findById(id)
 
-
-  // has user a rating for this tool?
-  let hasRating = false;
-  userToBeUpdated.ratings.forEach(async rating => {
+  try {
+    // has user a rating for this tool?
+    let hasRating = false;
+    userToBeUpdated.ratings.forEach(async rating => {
     if (rating.tool == id) { 
       hasRating = true;
       const newRating = ((data.rating * data.numberOfRatings + (req.body.rating - rating.ratingValue)) / data.numberOfRatings).toFixed(1);
@@ -103,6 +114,11 @@ router.post("/detail/:id/rate", async (req, res, next) => {
     // if user already has a rating for this tool
   }
   res.redirect(`/tools/detail/${id}`); 
+  } catch (error) {
+    console.log(error)
+  }
+  
+  
 })
  
 router.post("/detail/:id/delete", isLoggedIn, async (req, res) => {
