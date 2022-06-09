@@ -16,7 +16,7 @@ router.get("/detail/add", isLoggedIn, (req, res, next) => {
 router.post("/detail/add", isLoggedIn, fileUploader.single("tool-img"), async (req, res, next) => {
   try {
     req.body.creator = req.session.user._id;
-    if (typeof req.body.path != "undefined") {
+    if (typeof req.file.path != "undefined") {
       await Tool.create({
         toolName: req.body.toolName, 
         description: req.body.description,

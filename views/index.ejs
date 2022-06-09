@@ -1,17 +1,17 @@
 
-<p>Welcome to the Web Developer Tool Database!</p>
+<p id="welcome">Welcome to the Web Developer Tool Database!</p>
 
-<h2>All tools</h2>
+<h1 class="page-heading">All tools</h1>
 
 <form method="post" action="/">
     <label id="selector">
-        <select class="sort" name="sort">
+        <select class="sort-and-filter" name="sort">
             <option value='rating'>By Rating</option>
             <option value='downloads'>By N° of Downloads</option>
             <option value='alphabetically'>Alphabetically</option>
             <option value='by-date'>Newest first</option>
         </select>
-        <select class="filter" name="filter">
+        <select class="sort-and-filter" name="filter">
             <option value='all'>All categories</option>
             <option value='general'>General</option>
             <option value='cloud'>Cloud/Platform</option>
@@ -25,13 +25,13 @@
 </form>
 
 <% data.forEach( tool => { %>
-    <div class="card">
+    <div class="card1">
         <img class= "tool-icon" src=<%= tool.img %> alt="the tool's logo">
         <p id="tool-name"> <%= tool.toolName %> </p>
         <p id="tool-rating"><%= tool.rating %> </p>
         <p>Number of downloads: <%= tool.downloads %></p>
         <form id="dlCounter" action="../tools/detail/<%= tool._id %>/incrementDownloadCounter" method="POST" target="_blank">
-            <button>Download</button>
+            <button class="dlButt">Download</button>
         </form>
         
         <button id="show-details-button"><a id="showDetailsLink" href="../tools/detail/<%= tool._id %>">Show details</a></button>

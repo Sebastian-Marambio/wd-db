@@ -3,18 +3,18 @@
 <form action="/tools/detail/add" method="POST" enctype="multipart/form-data">
     <label>
       Name:
-      <input type="text" name="toolName" />
+      <input type="text" name="toolName" maxlength="35" required/>
     </label>
     <label>
       Description:
-      <input type="text" name="description" />
+      <input type="text" name="description" required/>
     </label>
     <label>
       Download link:
       <input type="text" name="downloadLink">
     </label>
     <label> Categories</label>
-        <select name="category" multiple>
+        <select name="category" multiple required>
             <option value="general" selected>General</option>
             <option value="cloud">Cloud</option>
             <option value="graphic">Graphic</option>

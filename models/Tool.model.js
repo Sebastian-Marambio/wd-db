@@ -6,6 +6,7 @@ const toolSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    maxlength: 35,
   },
   description: {
     type: String,
