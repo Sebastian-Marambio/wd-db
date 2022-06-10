@@ -92,6 +92,7 @@ router.post("/detail/:id/rate", async (req, res, next) => {
   try {
     // has user a rating for this tool?
     let hasRating = false;
+    // if user already has a rating for this tool
     userToBeUpdated.ratings.forEach(async rating => {
     if (rating.tool == id) { 
       hasRating = true;
@@ -104,21 +105,18 @@ router.post("/detail/:id/rate", async (req, res, next) => {
   // if user rates for the first time
   if (!hasRating) {
     userToBeUpdated.ratings.push({ tool: id, ratingValue: req.body.rating })
-  await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
     req.session.user._id, {
     $push: {ratings: userToBeUpdated.ratings}
   })
     const newRating = (((data.rating * data.numberOfRatings) + Number(req.body.rating)) / (data.numberOfRatings + 1)).toFixed(1);
     const newNumberOfRatings = data.numberOfRatings + 1;
-    await Tool.findByIdAndUpdate(id, { rating: newRating, numberOfRatings: newNumberOfRatings });
-    // if user already has a rating for this tool
+    await Tool.findByIdAndUpdate(id, { rating: newRating, numberOfRatings: newNumberOfRatings }); 
   }
   res.redirect(`/tools/detail/${id}`); 
   } catch (error) {
     console.log(error)
   }
-  
-  
 })
  
 router.post("/detail/:id/delete", isLoggedIn, async (req, res) => {
