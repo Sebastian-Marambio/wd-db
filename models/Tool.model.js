@@ -31,7 +31,7 @@ const toolSchema = new Schema({
   creator: { type: Schema.Types.ObjectID, ref: "User" },
 });
 
-// toolSchema.index({'$**': 'text'});
+toolSchema.index({'$**': 'text'});
 
 const Tools = model("tool", toolSchema);
 

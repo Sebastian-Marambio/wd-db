@@ -244,19 +244,30 @@ button {
   color:white;
 }
 
-#selector {
+.selector {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-#selector select {
+.selector select {
   border-radius: 15px;
   border: 0;
   margin-left: 0;
   margin-right: 1%;
   padding-left: 1%;
   width: 10%;
+}
+
+#details-rating-selector {
+  border-radius: 15px;
+  border: 0;
+  margin-left: 0;
+  margin-right: 1%;
+  padding-left: 1%;
+  width: 12%;
+  height: 8%;
+  text-align: center;
 }
 
 .sort-and-filter {
